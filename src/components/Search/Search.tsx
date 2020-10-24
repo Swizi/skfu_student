@@ -15,13 +15,13 @@ const Search: React.FC = () => {
           <input
             type="search"
             className="search_input"
-            placeholder="Напишите специальность"
+            placeholder="Специальность..."
           />
-          <Icon
+          {/* <Icon
             className="settings_adjust"
             icon={settingsAdjust}
             style={{ fontSize: "28px" }}
-          />
+          /> */}
         </div>
         <button type="submit" className="search__button">
           Искать

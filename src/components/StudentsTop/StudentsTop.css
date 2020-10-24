@@ -1,0 +1,47 @@
+.students_top_list {
+  list-style-type: decimal;
+  margin: 0 15px 0 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.student_top {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 19px;
+
+  color: #000000;
+  margin: 0 0 20px 0;
+}
+
+.open_top__text {
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 22px;
+  /* identical to box height */
+  text-align: right;
+  color: #000000;
+  text-decoration: underline;
+}
+
+.students_top {
+  margin: 120px 0 0 163px;
+  max-width: 730px;
+}
+
+
+@media(max-width: 700px){
+  .students_top{
+    margin: 40px 0 20px 0;
+  }
+}
+
+@media(max-width: 700px){
+  .students_top{
+    margin: 30px 15px 20px 15px;
+  }
+}

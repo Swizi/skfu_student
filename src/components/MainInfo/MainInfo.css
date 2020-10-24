@@ -43,7 +43,8 @@
   .main_info__header {
     font-size: 28px;
     line-height: 34px;
-    text-align: left;
+    margin: 15px 0 40px 0;
+    text-align: center;
   }
   .main_info{
     align-items: flex-start;
@@ -55,12 +56,19 @@
   .main_info__big_image{
     display: none;
   }
-  .main_info__small_image{
-    display: block;
+  .main_info{
+    background-image: url(../../images/main_info_big_image.png);
+    background-image: -webkit-image-set(url(../../images/main_info_big_image.png) 1x);
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-attachment: fixed;
+    padding-bottom: 100px;
   }
   .main_info__header {
     font-size: 24px;
     line-height: 29px;
-    text-align: left;
+  }
+  .main_info__header{
+    color: #fff;
   }
 }

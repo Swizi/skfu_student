@@ -1,14 +1,14 @@
 .menu_container{
   display: flex;
   flex-direction: row;
-  padding: 6px 27px 6px 27px;
+  padding: 20px 37px 20px 37px;
   border-bottom: 0.5px solid #000000;
   align-items: center;
   justify-content: space-between;
 }
 
 .logo__text {
-  font-family: 'Lato', sans-serif;
+  font-family: Roboto, sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 18px;
@@ -16,6 +16,18 @@
   color: #000000;
   margin: 0 0 0 30px;
   max-width: 230px;
+}
+
+.logo__text_mobile{
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  color: #000000;
+  margin: 0 0 0 30px;
+  max-width: 230px;
+  display: none; 
 }
 
 .logo {
@@ -41,23 +53,29 @@
 }
 
 .logo__registration_button {
-  font-family: 'Lato', sans-serif;
+  font-family: Roboto, sans-serif;
   font-style: normal;
   font-weight: normal;
   font-size: 18px;
   line-height: 22px;
-  border-radius: 5px;
+  border-radius: 30px;
   padding: 4px 29px 4px 29px;
   background-color: #152296;
   color: #fff;
   text-decoration: none;
   margin: 0 25px 0 0;
+  transition: 0.5s;
 }
 
 .logo__registration_button{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
+
+.logo__registration_button:hover{
+  color: #fff;
+  background-color: green;
 }
 
 .logo__login_button{
@@ -67,7 +85,7 @@
   text-decoration: none;
 }
 .logo__login_text{
-  font-family: 'Lato', sans-serif;
+  font-family: Roboto, sans-serif;
   font-style: normal;
   font-weight: normal;
   font-size: 18px;
@@ -101,16 +119,29 @@
   height: 0;
   transition: 0.5s;
   position: absolute;
-  top: 104px;
+  top: 54px;
   left: 0;
   width: 100%;
   background-color: #000;
+}
+
+.mobile_menu__item{
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 22px;
+  color: #fff;
 }
 /* Медиа-запросы */
 
 @media(max-width: 700px){
   .menu_container{
-    padding: 6px 20px 6px 20px;
+    padding: 15px 20px 15px 20px;
+  }
+
+  .logo__text_mobile{
+    display: block;
   }
 
   .menu{

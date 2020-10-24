@@ -5,26 +5,20 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import $ from "jquery";
 import { ToastProvider, useToasts } from "react-toast-notifications";
 
-import "./Registration.css";
+import "./Login.css";
 
 import { useFormik } from "formik";
 
-interface RegistrationValues {
+interface LoginValues {
   login: string;
-  fullName: string;
-  email: string;
   password: string;
-  role: string;
 }
 
-const validate = (values: RegistrationValues) => {
+const validate = (values: LoginValues) => {
   let isError = false;
-  const errors: RegistrationValues = {
+  const errors: LoginValues = {
     login: "",
-    fullName: "",
-    email: "",
-    password: "",
-    role: "",
+    password: ""
   };
 
   if (!/^[a-zA-Z0-9-_]{5,15}$/g.test(values.login)) {
@@ -37,17 +31,6 @@ const validate = (values: RegistrationValues) => {
     isError = true;
   }
 
-  let arrayFullname = values.fullName.split(" ");
-  if (arrayFullname.length !== 3) {
-    errors.fullName = "Неверное ФИО";
-    isError = true;
-  }
-
-  if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-    errors.email = "Неправильный email";
-    isError = true;
-  }
-
   if (isError){
     return errors
   } else {
@@ -55,32 +38,23 @@ const validate = (values: RegistrationValues) => {
   }
 };
 
-const Registration: React.FC = () => {
+const Login: React.FC = () => {
   let history = useHistory();
   const { addToast } = useToasts();
   const formik = useFormik({
     initialValues: {
       login: "",
-      fullName: "",
-      email: "",
-      password: "",
-      role: "",
+      password: ""
     },
     validate,
     validateOnChange: false,
     validateOnBlur: false,
     onSubmit: (values) => {
-      alert("Pushed");
       $.post(
-        `/ajax/register.php`,
+        `/ajax/login.php`,
         {
-          target: "registration",
+          target: "logination",
           login: values.login,
-          first_name: values.fullName.split(" ")[1],
-          last_name: values.fullName.split(" ")[0],
-          additional_name: values.fullName.split(" ")[2],
-          email: values.email,
-          role: "student",
           password: values.password
         },
         function (data) {
@@ -89,7 +63,7 @@ const Registration: React.FC = () => {
             localStorage.setItem("login", values.login);
             history.push("/");
           } else {
-            addToast("Ошибка регистрации", { appearance: "error" });
+            addToast("Ошибка входа", { appearance: "error" });
           }
         }
       );
@@ -98,7 +72,7 @@ const Registration: React.FC = () => {
   return (
     <div className="background_image">
       <div className="modal_window">
-        <h3 className="block_header">Регистрация</h3>
+        <h3 className="block_header">Вход</h3>
         <hr className="block_separator" />
         <form method="GET" className="form" onSubmit={formik.handleSubmit}>
           <Form.Group controlId="formBasicLogin">
@@ -107,24 +81,6 @@ const Registration: React.FC = () => {
             {formik.errors.login !== "" && (
               <Form.Text className="text-muted" >
                 {formik.errors.login}
-              </Form.Text>
-            )}
-          </Form.Group>
-          <Form.Group controlId="formBasicFullName">
-            <Form.Label>ФИО</Form.Label>
-            <Form.Control value={formik.values.fullName} type="text" placeholder="Введите ФИО" id="fullName" name="fullName" onChange={formik.handleChange}/>
-            {formik.errors.fullName !== "" && (
-              <Form.Text className="text-muted">
-                {formik.errors.fullName}
-              </Form.Text>
-            )}
-          </Form.Group>
-          <Form.Group controlId="formBasicEmail">
-            <Form.Label>E-mail</Form.Label>
-            <Form.Control value={formik.values.email} type="email" placeholder="Введите email" id="email" name="email" onChange={formik.handleChange}/>
-            {formik.errors.email !== "" && (
-              <Form.Text className="text-muted">
-                {formik.errors.email}
               </Form.Text>
             )}
           </Form.Group>
@@ -153,7 +109,7 @@ const Registration: React.FC = () => {
             />
           </Form.Group>
           <Button variant="primary" type="submit" className="form_submit">
-            Создать профиль
+            Зайти
           </Button>
         </form>
       </div>
@@ -161,4 +117,4 @@ const Registration: React.FC = () => {
   );
 };
 
-export default Registration;
+export default Login;

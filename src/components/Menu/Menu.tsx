@@ -5,7 +5,13 @@ import ExitToAppOutlinedIcon from "@material-ui/icons/ExitToAppOutlined";
 import "./Menu.css";
 
 const Menu: React.FC = () => {
+  const [isLogin, setLogin] = useState<Boolean>(false);
   useEffect(() => {
+    if (localStorage.getItem("login")) {
+      setLogin(true);
+    } else {
+      setLogin(false);
+    }
     const burger = document.querySelector(".burger")!;
     const mobile_menu = document.querySelector(".mobile_menu")!;
     burger.addEventListener("click", function () {
@@ -17,40 +23,48 @@ const Menu: React.FC = () => {
     <div className="menu_container">
       <div className="menu">
         <div className="logo">
-          <img src="images/skfu_logo.png" alt="Logo"/>
-          <h3 className="logo__text">
-            Северо-Кавказский федеральный университет
-          </h3>
+          <h3 className="logo__text">StudyJob</h3>
         </div>
         <div className="logo__user">
-          <Link to="/Registration" className="logo__registration_button">
-            Регистрация
-          </Link>
-          <Link to="/Logination" className="logo__login_button">
-            <span className="logo__login_text">Вход</span>
-            <ExitToAppOutlinedIcon className="logo__login_image" />
-          </Link>
+          {!isLogin && (
+            <React.Fragment>
+              {!isLogin && (
+                <Link to="/PersonalAccount" className="logo__login_button">
+                  Личный кабинет
+                </Link>
+              )}
+              <Link to="/Registration" className="logo__registration_button">
+                Регистрация
+              </Link>
+              <Link to="/Login" className="logo__login_button">
+                <span className="logo__login_text">Вход</span>
+                <ExitToAppOutlinedIcon className="logo__login_image" />
+              </Link>
+            </React.Fragment>
+          )}
         </div>
       </div>
-      <img
-        src="images/skfu_logo.png"
-        style={{ display: "none" }}
-        className="mobile_menu__logo"
-        alt="Logo"
-      />
+      <h3 className="logo__text_mobile">StudyJob</h3>
       <div className="mobile_menu" style={{ visibility: "hidden" }}>
         <div className="mobile_menu__wrapper">
-        <Link to="/Registration" className="logo__registration_button">
-          Регистрация
-        </Link>
-        <Link to="/Logination" className="logo__login_button">
-          <span className="logo__login_text" style={{ color: "#fff" }}>
-            Вход
-          </span>
-          <ExitToAppOutlinedIcon
-            className="mobile__login_image"
-          />
-        </Link>
+          {!isLogin && (
+            <React.Fragment>
+              {!isLogin && (
+                <Link to="/PersonalAccount" className="mobile_menu__item">
+                  Личный кабинет
+                </Link>
+              )}
+              <Link to="/Registration" className="logo__registration_button">
+                Регистрация
+              </Link>
+              <Link to="/Login" className="logo__login_button">
+                <span className="logo__login_text" style={{ color: "#fff" }}>
+                  Вход
+                </span>
+                <ExitToAppOutlinedIcon className="mobile__login_image" />
+              </Link>{" "}
+            </React.Fragment>
+          )}
         </div>
       </div>
       <div className="burger" style={{ display: "none" }}>
