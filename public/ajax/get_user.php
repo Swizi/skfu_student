@@ -8,13 +8,15 @@ header("Access-Control-Allow-Origin: *");
 
 function getStudent($userId)
 {
+  $response['role'] = 'student';
+
 	$query = "SELECT * FROM resumes WHERE user_id = {$userId};";
 	$data = mqagd($query);
 
 	if ($data['telephone_number'] == -1) {
-		$response = '';
+		$response['resume'] = '';
 	} else {
-		$response = [
+		$response['resume'] = [
 		  'ability_to_request_privileges' => $data['ability_to_request_privileges'],
       'telephone_number' => $data['telephone_number'],
       'birthday' => $data['birthday'],
@@ -33,11 +35,13 @@ function getStudent($userId)
 
 function getEmployer($userId)
 {
+  $response['role'] = 'employer';
+
 	$query = "SELECT * FROM employers WHERE user_id = {$userId};";
 	$data = mqagd($query);
 
 	if ($data['company'] == '') {
-		$response = '';
+		$response['information'] = '';
 	} else {
 		$vacancies = [];
 		$vacanciesIds = getIds($data['vacancies_ids']);
@@ -48,7 +52,7 @@ function getEmployer($userId)
 				'title' => mqagd($query)['title']
 			];
 		}
-		$response = [
+		$response['information'] = [
 		  'company' => $data['company'],
       'vacancies' => $vacancies
 	  ];

@@ -1,0 +1,8 @@
+.account_info {
+  max-width: 500px;
+  margin: 70px auto;
+}
+
+.account_info__item {
+  float: right;
+}

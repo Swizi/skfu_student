@@ -1,11 +1,63 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
+import { ToastProvider, useToasts } from "react-toast-notifications";
+import $ from "jquery";
+import { Spinner } from "react-bootstrap";
+import AccountInfo from "../../components/AccountInfo/AccountInfo";
+import Summary from "../../components/Summary/Summary";
+import Menu from "../../components/Menu/Menu";
 
 import "./PersonalAccount.css";
 
+interface UserInfo {
+  data: Array<any>;
+}
+
+const IndividualContent: React.FC<UserInfo> = (data) => {
+  //Проверка данных if role -> student, if -> employer, if -> admin
+  //Y Student -> Summary
+  return <h1>Employer</h1>;
+};
+
 const PersonalAccount: React.FC = () => {
+  let history = useHistory();
+  const { addToast } = useToasts();
+  //В рабочей версии сделать изначально загрузку - true
+  const [isLoading, setLoading] = useState(true);
+  const [userData, setUserData] = useState([]);
+  const [isLogin, setLogin] = useState<Boolean>(false);
+
+  useEffect(() => {
+    $.post(
+      `/ajax/get_user.php`,
+      {
+        target: "get-user",
+      },
+      function (data) {
+        var response = $.parseJSON(data);
+        if (response.status == 0) {
+          setLogin(true);
+          console.log(response);
+        } else {
+          addToast("Не удалось получить данные", { appearance: "error" });
+        }
+        setLoading(false);
+      }
+    );
+  });
+
+  if (isLoading) {
+    return <Spinner className="spinner__loading" animation="border" />;
+  }
+
   return (
     <React.Fragment>
-      123
+      <Menu isLoading={isLoading} isLogin={isLogin} />
+      <div className="personal_account">
+        <h1 className="personal_account__header">Личные данные</h1>
+        <AccountInfo />
+        <IndividualContent data={userData} />
+      </div>
     </React.Fragment>
   );
 };
