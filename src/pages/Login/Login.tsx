@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Spinner } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import $ from "jquery";
@@ -41,6 +41,7 @@ const validate = (values: LoginValues) => {
 const Login: React.FC = () => {
   let history = useHistory();
   const { addToast } = useToasts();
+  const [isLoading, setLoading] = useState<boolean>(false);
   const formik = useFormik({
     initialValues: {
       login: "",
@@ -50,6 +51,7 @@ const Login: React.FC = () => {
     validateOnChange: false,
     validateOnBlur: false,
     onSubmit: (values) => {
+      addToast("Загрузка...", { appearance: "info", autoDismiss: true });
       $.post(
         `/ajax/login.php`,
         {
@@ -60,7 +62,6 @@ const Login: React.FC = () => {
         function (data) {
           var response = $.parseJSON(data);
           if (response.status == 0) {
-            localStorage.setItem("login", values.login);
             history.push("/");
           } else {
             addToast("Ошибка входа", { appearance: "error" });

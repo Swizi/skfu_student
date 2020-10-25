@@ -3,10 +3,12 @@ import { Icon, InlineIcon } from "@iconify/react";
 import settingsAdjust from "@iconify/icons-carbon/settings-adjust";
 
 import "./Search.css";
+import $ from "jquery";
 
-const Search: React.FC<{ setLoading: any }> = ({
+const Search: React.FC<{ setLoading: any, setVacancies: any }> = ({
   children,
-  setLoading
+  setLoading,
+  setVacancies
 }) => {
   const [searchValue, setSearchValue] = useState<string>("");
 
@@ -21,7 +23,7 @@ const Search: React.FC<{ setLoading: any }> = ({
       function (data) {
         var response = $.parseJSON(data);
         if (response.status == 0) {
-          // setVacancies(response.vacancies);
+          setVacancies(response.vacancies);
         }
         setLoading(false);
       }
@@ -33,7 +35,7 @@ const Search: React.FC<{ setLoading: any }> = ({
   }
   return (
     <div className="search_container">
-      <form method="GET" className="search" onSubmit={(e) => search}>
+      <form method="GET" className="search" onSubmit={(e) => search(e)}>
         <div className="input_text">
           <span className="icon search_icon">
             <i className="fa fa-search"></i>
@@ -44,11 +46,6 @@ const Search: React.FC<{ setLoading: any }> = ({
             placeholder="Специальность..."
             onChange={(e) => changeValue(e)}
           />
-          {/* <Icon
-            className="settings_adjust"
-            icon={settingsAdjust}
-            style={{ fontSize: "28px" }}
-          /> */}
         </div>
         <button type="submit" className="search__button">
           Искать

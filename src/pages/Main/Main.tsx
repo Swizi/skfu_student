@@ -57,19 +57,9 @@ const Main: React.FC = () => {
     <React.Fragment>
       <Menu isLoading={isLoading} isLogin={isLogin}/>
       <MainInfo />
-      {/* <Search setVacancies={setVacancies} setLoading={setJobsLoading} /> */}
-      <Search setLoading={setJobsLoading} />
-      {/* <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          flexWrap: "wrap",
-          justifyContent: "space-between",
-        }}
-      > */}
+      <Search setVacancies={setVacancies} setLoading={setJobsLoading} />
       <Jobs vacancies={vacancies} isJobsLoading={isJobsLoading} />
       <StudentsTop />
-      {/* </div> */}
     </React.Fragment>
   );
 };

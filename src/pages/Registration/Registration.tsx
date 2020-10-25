@@ -70,7 +70,7 @@ const Registration: React.FC = () => {
     validateOnChange: false,
     validateOnBlur: false,
     onSubmit: (values) => {
-      alert("Pushed");
+      addToast("Загрузка...", { appearance: "info", autoDismiss: true });
       $.post(
         `/ajax/register.php`,
         {

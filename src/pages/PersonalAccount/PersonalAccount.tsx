@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { ToastProvider, useToasts } from "react-toast-notifications";
 import $ from "jquery";
-import { Spinner } from "react-bootstrap";
+import { Spinner, Button } from "react-bootstrap";
 import AccountInfo from "../../components/AccountInfo/AccountInfo";
 import Summary from "../../components/Summary/Summary";
 import Menu from "../../components/Menu/Menu";
@@ -16,13 +16,39 @@ interface UserInfo {
 const IndividualContent: React.FC<UserInfo> = (data) => {
   //Проверка данных if role -> student, if -> employer, if -> admin
   //Y Student -> Summary
-  return <h1>Employer</h1>;
+  let history = useHistory();
+  const [isLoading, setLoading] = useState(false);
+
+  const logout = () => {
+    setLoading(true);
+    $.post(
+      `/ajax/logout.php`,
+      {
+        target: "logout",
+      },
+      function (data) {
+        var response = $.parseJSON(data);
+        if (response.status == 0) {
+          history.push("/");
+        }
+        setLoading(false);
+      }
+    );
+  };
+
+  return (
+    <React.Fragment>
+      {isLoading && <Spinner className="spinner__loading" animation="border" style={{marginBottom: 15}}/>}
+      <Button variant="outline-danger" onClick={logout}>
+        Выйти
+      </Button>
+    </React.Fragment>
+  );
 };
 
 const PersonalAccount: React.FC = () => {
   let history = useHistory();
   const { addToast } = useToasts();
-  //В рабочей версии сделать изначально загрузку - true
   const [isLoading, setLoading] = useState(true);
   const [userData, setUserData] = useState([]);
   const [isLogin, setLogin] = useState<Boolean>(false);
@@ -37,7 +63,6 @@ const PersonalAccount: React.FC = () => {
         var response = $.parseJSON(data);
         if (response.status == 0) {
           setLogin(true);
-          console.log(response);
         } else {
           addToast("Не удалось получить данные", { appearance: "error" });
         }

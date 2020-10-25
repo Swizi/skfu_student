@@ -18,6 +18,10 @@ const Jobs: React.FC<{ vacancies: any, isJobsLoading: boolean }> = ({
     setLoading(isJobsLoading);
   }, [isJobsLoading]);
 
+  useEffect(() => {
+    setVacancies(vacancies);
+  }, [vacancies]);
+
   if (isLoading) {
     return (
       <div className="jobs">
