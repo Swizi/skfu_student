@@ -16,11 +16,17 @@ function sessionHashVerify($id, $hash)
   }
 }
 
-function checkAuth()
+function checkAuth($inside = false)
 {
   $id = sessionGet('user_id');
   $hash = sessionGet('user_session_hash');
   if (!sessionHashVerify($id, $hash)) {
-    makeResponse(ERR_AUTH_FALSE);
+    if ($inside) {
+      return false;
+    } else {
+      makeResponse(ERR_AUTH_FALSE);
+    }
+  } else {
+    return true;
   }
 }

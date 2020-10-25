@@ -15,9 +15,6 @@ if ($target != 'searching') {
 
 $title = methodGet('title', 'post');
 
-//verifying
-checkAuth();
-
 //success
 $vacancies = getVacanciesList("search", $title);
 

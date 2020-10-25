@@ -4,6 +4,8 @@ import { useHistory } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import $ from "jquery";
 import { ToastProvider, useToasts } from "react-toast-notifications";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import IconButton from "@material-ui/core/IconButton";
 
 import "./Registration.css";
 
@@ -48,10 +50,10 @@ const validate = (values: RegistrationValues) => {
     isError = true;
   }
 
-  if (isError){
-    return errors
+  if (isError) {
+    return errors;
   } else {
-    return {}
+    return {};
   }
 };
 
@@ -81,7 +83,7 @@ const Registration: React.FC = () => {
           additional_name: values.fullName.split(" ")[2],
           email: values.email,
           role: "student",
-          password: values.password
+          password: values.password,
         },
         function (data) {
           var response = $.parseJSON(data);
@@ -98,21 +100,38 @@ const Registration: React.FC = () => {
   return (
     <div className="background_image">
       <div className="modal_window">
+        <IconButton onClick={() => history.goBack()}>
+          <ArrowBackIcon />
+        </IconButton>
         <h3 className="block_header">Регистрация</h3>
         <hr className="block_separator" />
         <form method="GET" className="form" onSubmit={formik.handleSubmit}>
           <Form.Group controlId="formBasicLogin">
             <Form.Label>Логин</Form.Label>
-            <Form.Control value={formik.values.login} type="text" placeholder="Введите логин" id="login" name="login" onChange={formik.handleChange}/>
+            <Form.Control
+              value={formik.values.login}
+              type="text"
+              placeholder="Введите логин"
+              id="login"
+              name="login"
+              onChange={formik.handleChange}
+            />
             {formik.errors.login !== "" && (
-              <Form.Text className="text-muted" >
+              <Form.Text className="text-muted">
                 {formik.errors.login}
               </Form.Text>
             )}
           </Form.Group>
           <Form.Group controlId="formBasicFullName">
             <Form.Label>ФИО</Form.Label>
-            <Form.Control value={formik.values.fullName} type="text" placeholder="Введите ФИО" id="fullName" name="fullName" onChange={formik.handleChange}/>
+            <Form.Control
+              value={formik.values.fullName}
+              type="text"
+              placeholder="Введите ФИО"
+              id="fullName"
+              name="fullName"
+              onChange={formik.handleChange}
+            />
             {formik.errors.fullName !== "" && (
               <Form.Text className="text-muted">
                 {formik.errors.fullName}
@@ -121,7 +140,14 @@ const Registration: React.FC = () => {
           </Form.Group>
           <Form.Group controlId="formBasicEmail">
             <Form.Label>E-mail</Form.Label>
-            <Form.Control value={formik.values.email} type="email" placeholder="Введите email" id="email" name="email" onChange={formik.handleChange}/>
+            <Form.Control
+              value={formik.values.email}
+              type="email"
+              placeholder="Введите email"
+              id="email"
+              name="email"
+              onChange={formik.handleChange}
+            />
             {formik.errors.email !== "" && (
               <Form.Text className="text-muted">
                 {formik.errors.email}
@@ -130,7 +156,14 @@ const Registration: React.FC = () => {
           </Form.Group>
           <Form.Group controlId="formBasicPassword">
             <Form.Label>Password</Form.Label>
-            <Form.Control value={formik.values.password} type="password" placeholder="Введите пароль" id="password" name="password" onChange={formik.handleChange}/>
+            <Form.Control
+              value={formik.values.password}
+              type="password"
+              placeholder="Введите пароль"
+              id="password"
+              name="password"
+              onChange={formik.handleChange}
+            />
             {formik.errors.password !== "" && (
               <Form.Text className="text-muted">
                 {formik.errors.password}

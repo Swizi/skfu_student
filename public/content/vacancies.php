@@ -7,7 +7,7 @@ function getVacanciesList($target = "all", $additional = '')
       $query = "SELECT title, salary FROM vacancies;";
       break;
     case "search":
-      $query = "SELECT * FROM vacancies WHERE title = {$additional};";
+      $query = "SELECT * FROM vacancies WHERE title = '{$additional}';";
       break;
   }
 

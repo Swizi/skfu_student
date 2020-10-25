@@ -154,3 +154,7 @@ Resorted to normal white-space in all code tags
 Disabled the deprecated <marquee>, <blink> and <nobr> tag in some browsers
 
 */
+
+.MuiIconButton-root{
+  padding: 0 0 12px 0 !important;
+}

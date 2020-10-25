@@ -4,6 +4,8 @@ import { useHistory } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import $ from "jquery";
 import { ToastProvider, useToasts } from "react-toast-notifications";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import IconButton from "@material-ui/core/IconButton";
 
 import "./Login.css";
 
@@ -18,7 +20,7 @@ const validate = (values: LoginValues) => {
   let isError = false;
   const errors: LoginValues = {
     login: "",
-    password: ""
+    password: "",
   };
 
   if (!/^[a-zA-Z0-9-_]{5,15}$/g.test(values.login)) {
@@ -31,10 +33,10 @@ const validate = (values: LoginValues) => {
     isError = true;
   }
 
-  if (isError){
-    return errors
+  if (isError) {
+    return errors;
   } else {
-    return {}
+    return {};
   }
 };
 
@@ -45,7 +47,7 @@ const Login: React.FC = () => {
   const formik = useFormik({
     initialValues: {
       login: "",
-      password: ""
+      password: "",
     },
     validate,
     validateOnChange: false,
@@ -57,7 +59,7 @@ const Login: React.FC = () => {
         {
           target: "logination",
           login: values.login,
-          password: values.password
+          password: values.password,
         },
         function (data) {
           var response = $.parseJSON(data);
@@ -73,21 +75,38 @@ const Login: React.FC = () => {
   return (
     <div className="background_image">
       <div className="modal_window">
+        <IconButton onClick={() => history.goBack()}>
+          <ArrowBackIcon />
+        </IconButton>
         <h3 className="block_header">Вход</h3>
         <hr className="block_separator" />
         <form method="GET" className="form" onSubmit={formik.handleSubmit}>
           <Form.Group controlId="formBasicLogin">
             <Form.Label>Логин</Form.Label>
-            <Form.Control value={formik.values.login} type="text" placeholder="Введите логин" id="login" name="login" onChange={formik.handleChange}/>
+            <Form.Control
+              value={formik.values.login}
+              type="text"
+              placeholder="Введите логин"
+              id="login"
+              name="login"
+              onChange={formik.handleChange}
+            />
             {formik.errors.login !== "" && (
-              <Form.Text className="text-muted" >
+              <Form.Text className="text-muted">
                 {formik.errors.login}
               </Form.Text>
             )}
           </Form.Group>
           <Form.Group controlId="formBasicPassword">
             <Form.Label>Password</Form.Label>
-            <Form.Control value={formik.values.password} type="password" placeholder="Введите пароль" id="password" name="password" onChange={formik.handleChange}/>
+            <Form.Control
+              value={formik.values.password}
+              type="password"
+              placeholder="Введите пароль"
+              id="password"
+              name="password"
+              onChange={formik.handleChange}
+            />
             {formik.errors.password !== "" && (
               <Form.Text className="text-muted">
                 {formik.errors.password}

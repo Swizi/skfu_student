@@ -23,7 +23,9 @@ const Search: React.FC<{ setLoading: any, setVacancies: any }> = ({
       function (data) {
         var response = $.parseJSON(data);
         if (response.status == 0) {
-          setVacancies(response.vacancies);
+          let array = [];
+          array.push(response[0]);
+          setVacancies(array);
         }
         setLoading(false);
       }
